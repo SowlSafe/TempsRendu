@@ -1,0 +1,3 @@
+Déposez ici les logos officiels (format SVG), nommés :
+make.svg, zapier.svg, n8n.svg, power-automate.svg, apps-script.svg, tally.svg, airtable.svg, calendly.svg, ia.svg
+Utilisez les logos fournis par chaque éditeur (page presse / media kit) en respectant leurs règles d'usage.

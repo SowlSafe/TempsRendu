@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prestations entreprises · Temps Rendu</title>
+<meta name="description" content="Diagnostic des tâches répétitives, mise en place d'automatisations avec vos outils et suivi mensuel, pour TPE, PME et indépendants.">
+<meta property="og:title" content="Prestations entreprises · Temps Rendu">
+<meta property="og:description" content="Diagnostic des tâches répétitives, mise en place d'automatisations avec vos outils et suivi mensuel, pour TPE, PME et indépendants.">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Temps Rendu">
+<meta name="theme-color" content="#13231E">
+<meta name="forms-endpoint" content="">
+<script>try{var c=JSON.parse(localStorage.getItem('tr-confort')||'{}');for(var k in c){if(c[k])document.documentElement.setAttribute('data-'+k,c[k]);}}catch(e){}</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+<div class="topline"><div class="wrap topline-row"><div class="ticker" aria-label="Annonces">
+  <p class="tick on">Automatiser le répétitif, <b>rendre du temps</b> à vos équipes.</p>
+  <p class="tick"><b>Nouveau</b> · Masterclass « Ma première automatisation » : <a href="masterclass.html">voir les dates</a></p>
+  <p class="tick"><b>Bientôt</b> · votre espace apprenant : supports, replays et visios</p>
+  </div>
+  <div class="top-actions">
+  <div class="pop">
+    <button class="top-btn" id="nl-toggle" type="button" aria-expanded="false" aria-controls="nl-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5l9 6.5 9-6.5"/></svg><span>Newsletter</span></button>
+    <div class="pop-panel" id="nl-panel" hidden>
+      <p class="pop-title">La newsletter des outils</p>
+      <p class="muted">Un outil et un cas concret tous les quinze jours. Gratuite, désinscription en un clic.</p>
+      <form class="stack-form" data-form="newsletter" data-success="Merci, vous recevrez le prochain numéro.">
+        <label for="top-mail">Votre e-mail</label>
+        <input id="top-mail" name="email" type="email" required autocomplete="email">
+        <button class="btn" type="submit">S'inscrire</button>
+        <p class="msg" data-msg hidden role="status"></p>
+      </form>
+    </div>
+  </div>
+  <a class="top-btn" href="espace.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span>Mon espace</span></a>
+  <div class="comfort">
+    <button class="top-btn" id="comfort-toggle" type="button" aria-expanded="false" aria-controls="comfort-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><path d="M4 8.5l8 1.5 8-1.5M12 10v5m0 0l-3.5 6.5M12 15l3.5 6.5"/></svg><span>Confort</span></button>
+    <div class="comfort-panel" id="comfort-panel" hidden>
+      <p class="comfort-title">Confort de lecture</p>
+      <fieldset><legend>Taille du texte</legend><div class="seg"><button type="button" data-set="text" data-val="">A</button><button type="button" data-set="text" data-val="lg">A+</button><button type="button" data-set="text" data-val="xl">A++</button></div></fieldset>
+      <fieldset><legend>Espacement</legend><div class="seg"><button type="button" data-set="spacing" data-val="">Standard</button><button type="button" data-set="spacing" data-val="wide">Aéré</button></div></fieldset>
+      <fieldset><legend>Animations</legend><div class="seg"><button type="button" data-set="motion" data-val="">Activées</button><button type="button" data-set="motion" data-val="off">Désactivées</button></div></fieldset>
+      <fieldset><legend>Contraste</legend><div class="seg"><button type="button" data-set="contrast" data-val="">Standard</button><button type="button" data-set="contrast" data-val="high">Renforcé</button></div></fieldset>
+    </div>
+  </div>
+  </div>
+</div></div>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="index.html" aria-label="Temps Rendu, accueil"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M15 15 L15 6 A9 9 0 0 1 23.5 18 Z" fill="var(--accent)"/><path d="M15 8v7l5 3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg><span>Temps Rendu</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Navigation principale"><a href="index.html">Accueil</a><a href="entreprises.html" aria-current="page">Entreprises</a><a href="formations.html">Formations</a><a href="masterclass.html">Masterclass</a><a href="outils.html">Outils</a><a href="reseau.html">Réseau</a><a href="tarifs.html">Tarifs</a><a href="a-propos.html">À propos</a><a class="btn small" href="contact.html">Nous contacter</a></nav>
+  </div>
+</header>
+<main id="contenu">
+<section class="page-hero band-night"><div class="wrap"><div class="hero-copy">
+      <p class="eyebrow">Entreprises · Prestations</p>
+      <h1>Vos équipes ne sont pas là pour copier-coller</h1>
+      <p class="lead">Nous repérons les tâches répétitives qui grignotent les journées, nous les automatisons avec les outils que vous utilisez déjà et nous assurons le suivi.</p>
+      <div class="row"><a class="btn amber" href="contact.html#entreprise">Demander un diagnostic</a><a class="btn ghost" href="tarifs.html#entreprises">Voir les tarifs</a></div>
+    </div></div></section>
+<section>
+<div class="wrap">
+  <div class="head"><p class="eyebrow">Par service</p><h2>Où se cache le temps perdu</h2><p class="lead">Chaque service a ses tâches répétitives. Voici celles que nous automatisons le plus souvent.</p></div>
+  <div class="cards">
+    <div class="card"><p class="who">Commercial</p><h3>Devis, relances, CRM</h3><ul class="muted"><li>Relances automatiques des devis</li><li>Fiches clients créées depuis les formulaires</li><li>Prise de rendez-vous sans échange de mails</li></ul></div>
+    <div class="card"><p class="who">Ressources humaines</p><h3>Arrivées, absences, entretiens</h3><ul class="muted"><li>Parcours d'arrivée d'un salarié</li><li>Demandes de congés centralisées</li><li>Rappels d'entretiens et de visites médicales</li></ul></div>
+    <div class="card"><p class="who">Administration</p><h3>Factures, documents, tableaux</h3><ul class="muted"><li>Factures fournisseurs classées et suivies</li><li>Documents générés à partir d'un modèle</li><li>Tableaux de bord mis à jour tout seuls</li></ul></div>
+    <div class="card"><p class="who">Service client</p><h3>Demandes, tri, réponses</h3><ul class="muted"><li>Demandes triées par priorité</li><li>Accusés de réception personnalisés</li><li>Alertes quand une demande attend trop</li></ul></div>
+  </div>
+</div>
+</section>
+
+<section class="band-soft" id="secteurs">
+<div class="wrap">
+  <div class="head"><p class="eyebrow">Par secteur</p><h2>Des exemples dans votre métier</h2></div>
+  <div class="cards"><div class="card"><p class="who">Cabinets, centres de santé, EHPAD</p><h3>Santé et médico-social</h3><ul class="muted"><li>Rappels de rendez-vous</li><li>Documents administratifs préremplis</li><li>Suivi des commandes de matériel</li></ul><p class="note" style="margin:0">Les données de santé ne passent que par des outils certifiés HDS, ou restent hors des automatisations.</p></div><div class="card"><p class="who">Cabinets comptables, agences, assurances</p><h3>Tertiaire et services</h3><ul class="muted"><li>Relances de pièces manquantes</li><li>Tri des demandes clients</li><li>Comptes rendus classés automatiquement</li></ul></div><div class="card"><p class="who">Entreprises du bâtiment, artisans</p><h3>Artisans et BTP</h3><ul class="muted"><li>Devis et relances</li><li>Planning des chantiers partagé</li><li>Photos de chantier rangées par client</li></ul></div><div class="card"><p class="who">PME industrielles, transport</p><h3>Industrie et logistique</h3><ul class="muted"><li>Alertes de maintenance</li><li>Suivi qualité dans un tableau</li><li>Bons de livraison archivés</li></ul></div><div class="card"><p class="who">Boutiques, e-commerce</p><h3>Commerce</h3><ul class="muted"><li>Commandes vers la comptabilité</li><li>Avis clients collectés</li><li>Alertes de stock bas</li></ul></div><div class="card"><p class="who">Associations, mairies, structures publiques</p><h3>Associations et collectivités</h3><ul class="muted"><li>Inscriptions et adhésions</li><li>Convocations et rappels</li><li>Tableaux de bord pour les financeurs</li></ul></div></div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <div class="head"><p class="eyebrow">Exemples concrets</p><h2>Ce qu'on automatise le plus souvent</h2></div>
+  <div class="examples">
+    <div class="example"><h3>Les demandes de contact</h3><div class="chain"><span>Formulaire du site</span><span class="arrow">→</span><span>Tableau de suivi</span><span class="arrow">→</span><span>Tri par priorité</span><span class="arrow">→</span><span>Réponse avec lien de rendez-vous</span></div><p class="muted">Plus aucune demande oubliée, et le client choisit lui-même son créneau.</p></div>
+    <div class="example"><h3>Les devis et les relances</h3><div class="chain"><span>Devis envoyé</span><span class="arrow">→</span><span>Relance à J+7</span><span class="arrow">→</span><span>Alerte si pas de réponse</span></div><p class="muted">Les relances partent toutes seules, au bon moment.</p></div>
+    <div class="example"><h3>L'arrivée d'un salarié</h3><div class="chain"><span>Fiche d'arrivée</span><span class="arrow">→</span><span>Comptes créés</span><span class="arrow">→</span><span>Mail de bienvenue</span><span class="arrow">→</span><span>Check-list manager</span></div><p class="muted">Rien n'est oublié, même quand tout le monde est débordé.</p></div>
+    <div class="example"><h3>Les factures fournisseurs</h3><div class="chain"><span>Facture reçue par mail</span><span class="arrow">→</span><span>Classée dans le bon dossier</span><span class="arrow">→</span><span>Ligne ajoutée au suivi</span></div><p class="muted">La comptabilité retrouve tout, sans copier-coller.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="band-soft">
+<div class="wrap">
+  <div class="head"><p class="eyebrow">Nos prestations</p><h2>Trois façons de travailler ensemble</h2></div>
+  <div class="cards">
+    <div class="card"><p class="who">Pour commencer</p><h3>Le diagnostic</h3><p class="muted">Une demi-journée d'observation et d'entretiens. Vous repartez avec la carte de vos tâches répétitives, le temps qu'elles coûtent et 3 automatisations prioritaires chiffrées.</p><p class="from">590 € HT, déduit si vous commandez la mise en place</p></div>
+    <div class="card"><p class="who">Le plus choisi</p><h3>Le Pack Démarrage</h3><p class="muted">Diagnostic, 3 automatisations mises en place, 2 h de prise en main avec l'équipe et 1 mois de suivi offert.</p><p class="from">1 890 € HT</p></div>
+    <div class="card"><p class="who">Dans la durée</p><h3>Le suivi mensuel</h3><p class="muted">Nous surveillons vos automatisations, nous les réparons si un outil change et nous les faisons évoluer.</p><p class="from">Dès 90 € HT par mois</p></div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <div class="head"><p class="eyebrow">Déroulé</p><h2>Comment se passe une mission</h2></div>
+  <ol class="steps">
+    <li><h3>Échange</h3><p class="muted">20 minutes pour comprendre votre activité et vos outils. Gratuit.</p></li>
+    <li><h3>Diagnostic</h3><p class="muted">Observation du travail réel, mesure du temps, choix des priorités avec vous.</p></li>
+    <li><h3>Mise en place</h3><p class="muted">Construction, tests sur vos vrais cas, documentation simple.</p></li>
+    <li><h3>Prise en main</h3><p class="muted">Vos équipes savent utiliser, vérifier et ajuster chaque automatisation.</p></li>
+  </ol>
+</div>
+</section>
+
+<section class="band-soft">
+<div class="wrap">
+  <div class="head"><p class="eyebrow">Questions fréquentes</p><h2>Avant de vous lancer</h2></div>
+  <details><summary>Faut-il changer nos outils ?</summary><p>Non. Nous partons de ce que vous utilisez déjà : Google, Microsoft, votre logiciel de facturation, votre CRM. Nous ajoutons seulement l'outil d'orchestration qui les relie.</p></details>
+  <details><summary>Combien coûtent les outils eux-mêmes ?</summary><p>Beaucoup proposent une offre gratuite suffisante pour démarrer. Au-delà, comptez souvent quelques dizaines d'euros par mois. Le diagnostic chiffre ces abonnements avant toute décision.</p></details>
+  <details><summary>Que se passe-t-il si une automatisation s'arrête ?</summary><p>Avec le suivi mensuel, nous surveillons vos flux et nous les réparons. Sans suivi, vos équipes sont formées pour repérer et corriger les erreurs simples.</p></details>
+  <details><summary>Et les données personnelles ?</summary><p>Nous appliquons la minimisation : seules les données nécessaires circulent. Nous privilégions les outils hébergés en Europe et nous vous aidons à mettre à jour votre registre RGPD.</p></details>
+  <details><summary>Utilisez-vous l'intelligence artificielle ?</summary><p>Seulement quand elle apporte quelque chose qu'une règle simple ne peut pas faire, par exemple lire des mails rédigés librement. Dans la plupart des cas, des règles claires sont plus fiables, moins chères et plus faciles à maintenir.</p></details>
+</div>
+</section>
+<section class="band-night"><div class="wrap cta"><div><h2>Combien de temps perdez-vous chaque semaine ?</h2><p class="lead">Le diagnostic vous donne la réponse en chiffres, et les 3 automatisations qui rapportent le plus.</p></div><div class="row"><a class="btn amber" href="contact.html#entreprise">Demander un diagnostic</a></div></div></section>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div><p class="footer-title">Offres</p><a href="entreprises.html">Prestations entreprises</a><a href="formations.html">Formation des collaborateurs</a><a href="masterclass.html">Masterclass et parcours</a><a href="tarifs.html">Tarifs</a></div>
+    <div><p class="footer-title">Ressources</p><a href="outils.html">Les outils et la newsletter</a><a href="reseau.html">Devenir partenaire</a><a href="a-propos.html">À propos</a></div>
+    <div><p class="footer-title">Contact</p><a href="contact.html#entreprise">Demande entreprise</a><a href="contact.html#particulier">Demande particulier</a><a href="mentions-legales.html">Mentions légales et confidentialité</a></div>
+  </div>
+  <div class="wrap footer-social"><p class="footer-title">Suivez-nous</p><div class="socials"><span class="social soon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></svg><span>LinkedIn</span><small>bientôt</small></span><span class="social soon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></svg><span>Instagram</span><small>bientôt</small></span><span class="social soon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></svg><span>TikTok</span><small>bientôt</small></span></div></div>
+  <div class="wrap footer-bottom"><p>© 2026 Temps Rendu. Des automatisations simples, fiables et respectueuses des données.</p></div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
