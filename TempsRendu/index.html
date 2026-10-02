@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Temps Rendu · Automatiser le répétitif, rendre du temps</title>
+<meta name="description" content="Automatisation des tâches répétitives, formation des collaborateurs, masterclass et newsletter des outils d’orchestration. Rendre du temps à vos équipes.">
+<meta name="forms-endpoint" content="">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout : une semaine de travail qui se libère. Le hero montre un agenda ; chaque section est un « créneau » rendu. */
+:root{
+  --bg:#F4F6F3; --surface:#FFFFFF; --ink:#13231E; --muted:#56655F; --line:#D5DDD8;
+  --accent:#C98A00; --accent-soft:#FBEFCF; --task:#DCE4E0; --free:#13231E; --free-fg:#F4F6F3;
+  --display:"Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1513; --surface:#16201D; --ink:#E6ECE8; --muted:#9AA8A2; --line:#2A3833;
+  --accent:#F0B43A; --accent-soft:#3A2E12; --task:#24302C; --free:#F0B43A; --free-fg:#14110A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1513; --surface:#16201D; --ink:#E6ECE8; --muted:#9AA8A2; --line:#2A3833;
+  --accent:#F0B43A; --accent-soft:#3A2E12; --task:#24302C; --free:#F0B43A; --free-fg:#14110A; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body);padding-inline:16px}
+.wrap{max-width:1120px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.3rem,5.5vw,4.1rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:700;letter-spacing:-.015em}
+h3{font-size:1.25rem;font-weight:600}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font:600 .78rem/1 var(--mono);text-transform:uppercase;letter-spacing:.09em;color:var(--accent)}
+.muted{color:var(--muted)}
+.lead{font-size:1.2rem;color:var(--muted);max-width:60ch}
+section{padding-block:clamp(3.5rem,8vw,6rem)}
+section+section{border-top:1px solid var(--line)}
+.head{display:grid;gap:.8rem;margin-bottom:2.5rem;max-width:62ch}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font:600 1rem/1 var(--display);padding:.95rem 1.4rem;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:var(--bg);text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.row{display:flex;flex-wrap:wrap;gap:.8rem}
+
+/* Nav */
+nav.top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1.2rem;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:.6rem;font:700 1.3rem/1 var(--display);text-decoration:none}
+.logo svg{flex:none}
+.links{display:flex;gap:1.3rem;flex-wrap:wrap;font-size:.95rem}
+.links a{text-decoration:none;color:var(--muted)}
+.links a:hover{color:var(--ink)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;padding-block:clamp(2rem,6vw,4.5rem)}
+.hero>div{min-width:0;display:grid;gap:1.4rem}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.week{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem;display:grid;gap:.7rem}
+.week-head{display:flex;justify-content:space-between;align-items:baseline;font:600 .8rem/1 var(--mono);color:var(--muted)}
+.grid{display:grid;grid-template-columns:2.6rem repeat(5,1fr);gap:4px;font:400 .72rem/1 var(--mono)}
+.grid .d{text-align:center;color:var(--muted);padding-bottom:.3rem}
+.grid .h{color:var(--muted);text-align:right;padding-right:.4rem;align-self:center}
+.slot{height:1.55rem;border-radius:4px;background:var(--task);display:flex;align-items:center;padding-inline:.35rem;overflow:hidden;white-space:nowrap;color:var(--muted);font-size:.66rem}
+.slot.free{background:var(--free);color:var(--free-fg);font-weight:600;animation:free .9s ease both}
+.slot.empty{background:transparent;border:1px dashed var(--line)}
+@keyframes free{from{background:var(--task);color:var(--muted)}to{background:var(--free);color:var(--free-fg)}}
+@media (prefers-reduced-motion:reduce){.slot.free{animation:none}}
+.week-foot{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;border-top:1px solid var(--line);padding-top:.7rem;flex-wrap:wrap}
+.week-foot b{font:600 1.6rem/1 var(--mono);color:var(--accent)}
+.legend{display:flex;gap:1rem;font-size:.8rem;color:var(--muted)}
+.legend i{display:inline-block;width:.8rem;height:.8rem;border-radius:3px;vertical-align:-1px;margin-right:.35rem}
+
+/* Offres */
+.offers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+.offer{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1.6rem;display:grid;gap:.9rem;align-content:start}
+.offer .who{font:600 .75rem/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.offer ul{margin:0;padding-left:1.1rem;display:grid;gap:.35rem}
+.offer .from{font:600 .95rem/1.3 var(--mono);color:var(--accent);margin-top:auto}
+
+/* Méthode */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem;counter-reset:s}
+.steps li{counter-increment:s;display:grid;gap:.5rem;padding-top:1rem;border-top:3px solid var(--ink)}
+.steps li::before{content:"0" counter(s);font:600 .85rem/1 var(--mono);color:var(--accent)}
+
+/* Calculateur */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:stretch}
+.calc form,.result{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1.6rem;display:grid;gap:1.1rem;min-width:0}
+.field{display:grid;gap:.35rem}
+.field label{font-weight:700;font-size:.95rem}
+.field .val{font:600 .95rem/1 var(--mono);color:var(--accent)}
+.field .top{display:flex;justify-content:space-between;gap:1rem}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.result{background:var(--free);color:var(--free-fg);border-color:var(--free);align-content:center}
+.result .big{font:600 clamp(2.6rem,6vw,3.8rem)/1 var(--mono);letter-spacing:-.03em}
+.result .sub{font:600 1.3rem/1.2 var(--mono)}
+.result p{opacity:.85}
+.result small{opacity:.7;font-size:.82rem}
+
+/* Tarifs */
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.tab{font:600 .95rem/1 var(--display);padding:.7rem 1.1rem;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+.price{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1.5rem;display:grid;gap:.8rem;align-content:start}
+.price.pick{border:2px solid var(--accent)}
+.price .tag{justify-self:start;font:600 .72rem/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;background:var(--accent-soft);color:var(--ink);padding:.35rem .55rem;border-radius:4px}
+.price .amount{font:600 2rem/1 var(--mono);letter-spacing:-.02em}
+.price .amount small{font-size:.85rem;color:var(--muted);letter-spacing:0}
+.price ul{margin:0;padding-left:1.1rem;display:grid;gap:.3rem;color:var(--muted);font-size:.97rem}
+.note{margin-top:1.4rem;font-size:.92rem;color:var(--muted);max-width:75ch}
+
+/* Parti pris */
+.stance{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:start}
+.stance>*{min-width:0}
+.rules{display:grid;gap:1rem}
+.rule{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;padding:1rem 0;border-bottom:1px solid var(--line)}
+.rule b{font:600 .8rem/1.6 var(--mono);color:var(--accent);white-space:nowrap}
+
+/* Outils */
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr));gap:1rem}
+.tool{border:1px solid var(--line);border-radius:var(--r);padding:1.1rem;display:grid;gap:.4rem;background:var(--surface)}
+.tool .k{font:600 .7rem/1 var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.tool p{font-size:.95rem;color:var(--muted)}
+
+/* Réseau */
+.network{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.network>*{min-width:0}
+.flow{display:grid;gap:.6rem}
+.flow div{display:flex;justify-content:space-between;gap:1rem;padding:1rem 1.2rem;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
+.flow div:last-child{background:var(--free);color:var(--free-fg);border-color:var(--free)}
+.flow span:last-child{font:600 .85rem/1.6 var(--mono);opacity:.85;white-space:nowrap}
+
+/* FAQ */
+details{border-bottom:1px solid var(--line);padding-block:1.1rem}
+summary{cursor:pointer;font:600 1.1rem/1.3 var(--display);list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::after{content:"+";font-family:var(--mono);color:var(--accent)}
+details[open] summary::after{content:"–"}
+details p{margin-top:.7rem;color:var(--muted);max-width:70ch}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1.6rem;display:grid;gap:1rem;align-content:start;min-width:0}
+.card input,.card select,.card textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.75rem .85rem;width:100%}
+.card textarea{min-height:6rem;resize:vertical}
+.msg{font-size:.95rem;background:var(--accent-soft);padding:.8rem 1rem;border-radius:8px}
+footer{padding-block:2.5rem;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero,.calc,.stance,.network,.contact{grid-template-columns:1fr}
+  .prices{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .offers,.steps{grid-template-columns:1fr}
+  .links{display:none}
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<nav class="top" aria-label="Navigation principale">
+  <a class="logo" href="#top" id="top">
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M15 15 L15 6 A9 9 0 0 1 23.5 18 Z" fill="var(--accent)"/><path d="M15 8v7l5 3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    Temps Rendu
+  </a>
+  <div class="links">
+    <a href="#offres">Offres</a><a href="#calcul">Calculer</a><a href="#tarifs">Tarifs</a><a href="#outils">Newsletter</a><a href="#reseau">Réseau</a><a href="#faq">FAQ</a>
+  </div>
+  <a class="btn" href="#contact">Parler de mon projet</a>
+</nav>
+
+<header class="hero">
+  <div>
+    <p class="eyebrow">Automatisation · Formation · Productivité</p>
+    <h1>Automatiser le répétitif, <em>rendre du temps</em> à vos équipes.</h1>
+    <p class="lead">Relances, saisies, copier-coller entre deux outils, tri des demandes : nous automatisons ces tâches et formons vos collaborateurs. Le temps gagné revient au travail qui compte.</p>
+    <div class="row">
+      <a class="btn" href="#calcul">Estimer mon temps perdu</a>
+      <a class="btn ghost" href="#offres">Voir les offres</a>
+    </div>
+  </div>
+  <figure class="week" aria-label="Exemple : semaine d'une assistante commerciale avant et après automatisation">
+    <div class="week-head"><span>Semaine type · assistante commerciale</span><span>9 h – 13 h</span></div>
+    <div class="grid" aria-hidden="true">
+      <span></span><span class="d">Lun</span><span class="d">Mar</span><span class="d">Mer</span><span class="d">Jeu</span><span class="d">Ven</span>
+      <span class="h">9 h</span><span class="slot free">Temps rendu</span><span class="slot">Rendez-vous</span><span class="slot free" style="animation-delay:.2s">Temps rendu</span><span class="slot">Rendez-vous</span><span class="slot free" style="animation-delay:.4s">Temps rendu</span>
+      <span class="h">10 h</span><span class="slot">Devis</span><span class="slot free" style="animation-delay:.6s">Temps rendu</span><span class="slot">Devis</span><span class="slot free" style="animation-delay:.8s">Temps rendu</span><span class="slot">Équipe</span>
+      <span class="h">11 h</span><span class="slot">Clients</span><span class="slot">Clients</span><span class="slot free" style="animation-delay:1s">Temps rendu</span><span class="slot">Clients</span><span class="slot free" style="animation-delay:1.2s">Temps rendu</span>
+      <span class="h">12 h</span><span class="slot empty"></span><span class="slot">Équipe</span><span class="slot empty"></span><span class="slot">Projet</span><span class="slot empty"></span>
+    </div>
+    <div class="legend"><span><i style="background:var(--task)"></i>Travail à valeur</span><span><i style="background:var(--free)"></i>Saisies, relances, tri : automatisés</span></div>
+    <div class="week-foot"><span class="muted">Temps rendu sur la matinée</span><b>7 h / sem.</b></div>
+    <figcaption class="muted" style="font-size:.78rem">Exemple illustratif.</figcaption>
+  </figure>
+</header>
+</div>
+
+<section id="offres">
+<div class="wrap">
+  <div class="head">
+    <p class="eyebrow">Ce que nous faisons</p>
+    <h2>Quatre façons de gagner du temps</h2>
+    <p class="lead">Nous construisons pour vous, nous vous apprenons à le faire, ou les deux.</p>
+  </div>
+  <div class="offers">
+    <article class="offer">
+      <p class="who">Entreprises</p>
+      <h3>Prestations d'automatisation</h3>
+      <p class="muted">Nous repérons les tâches répétitives de vos équipes, nous les automatisons avec vos outils actuels et nous assurons le suivi.</p>
+      <ul><li>Diagnostic des tâches répétitives et du temps perdu</li><li>Mise en place : formulaires, tableaux, mails, agendas, devis, relances</li><li>Suivi mensuel et corrections</li></ul>
+      <p class="from">Dès 590 € HT le diagnostic</p>
+    </article>
+    <article class="offer">
+      <p class="who">Entreprises</p>
+      <h3>Formation des collaborateurs</h3>
+      <p class="muted">Vos équipes apprennent à repérer ce qui s'automatise et à construire leurs propres flux, sur leurs vrais cas.</p>
+      <ul><li>Atelier de 3 h pour repérer les tâches automatisables</li><li>Formation d'1 ou 2 jours « Automatiser sans coder »</li><li>En intra, jusqu'à 8 personnes, sur site ou à distance</li></ul>
+      <p class="from">Dès 690 € HT le groupe</p>
+    </article>
+    <article class="offer">
+      <p class="who">Particuliers et indépendants</p>
+      <h3>Masterclass et parcours</h3>
+      <p class="muted">Des sessions en direct pour créer votre première automatisation, puis un parcours complet pour en faire un métier.</p>
+      <ul><li>Masterclass de 2 h en direct, replay inclus</li><li>Parcours Intégrateur de 6 semaines sur un projet réel</li><li>Accès au réseau de partenaires à l'issue du parcours</li></ul>
+      <p class="from">Dès 49 € TTC la masterclass</p>
+    </article>
+    <article class="offer">
+      <p class="who">Pour tous</p>
+      <h3>La newsletter des outils</h3>
+      <p class="muted">Tous les quinze jours, un outil d'orchestration décrit simplement, un cas concret pas à pas, et la question qu'on ne pose jamais assez : faut-il vraiment de l'IA ?</p>
+      <ul><li>Fiches outils : Make, Zapier, n8n, Power Automate…</li><li>Un scénario prêt à reproduire</li><li>Les pièges RGPD à éviter</li></ul>
+      <p class="from">Gratuite</p>
+    </article>
+  </div>
+</div>
+</section>
+
+<section id="methode">
+<div class="wrap">
+  <div class="head">
+    <p class="eyebrow">Notre méthode</p>
+    <h2>Du diagnostic au suivi</h2>
+  </div>
+  <ol class="steps">
+    <li><h3>Diagnostic</h3><p class="muted">Nous observons le travail réel et chiffrons le temps passé sur chaque tâche répétitive.</p></li>
+    <li><h3>Priorités</h3><p class="muted">Nous retenons les automatisations qui rendent le plus de temps pour le moins d'effort.</p></li>
+    <li><h3>Construction</h3><p class="muted">Nous les mettons en place avec vos outils, testées sur vos vrais cas.</p></li>
+    <li><h3>Prise en main</h3><p class="muted">Vos équipes savent les utiliser, les ajuster et en créer de nouvelles.</p></li>
+  </ol>
+</div>
+</section>
+
+<section id="calcul">
+<div class="wrap">
+  <div class="head">
+    <p class="eyebrow">Calculateur</p>
+    <h2>Combien de temps vos équipes pourraient-elles récupérer ?</h2>
+    <p class="lead">Déplacez les curseurs. L'estimation se base sur 220 jours travaillés par an.</p>
+  </div>
+  <div class="calc">
+    <form id="calc-form" onsubmit="return false">
+      <div class="field"><div class="top"><label for="c-people">Personnes concernées</label><span class="val" id="v-people"></span></div><input type="range" id="c-people" min="1" max="50" value="5"></div>
+      <div class="field"><div class="top"><label for="c-min">Minutes par jour sur des tâches répétitives</label><span class="val" id="v-min"></span></div><input type="range" id="c-min" min="10" max="180" step="5" value="45"></div>
+      <div class="field"><div class="top"><label for="c-part">Part automatisable</label><span class="val" id="v-part"></span></div><input type="range" id="c-part" min="10" max="80" step="5" value="50"></div>
+      <div class="field"><div class="top"><label for="c-cost">Coût horaire chargé</label><span class="val" id="v-cost"></span></div><input type="range" id="c-cost" min="20" max="90" step="1" value="35"></div>
+    </form>
+    <div class="result" aria-live="polite">
+      <p>Temps rendu chaque année</p>
+      <p class="big" id="r-hours">0 h</p>
+      <p class="sub" id="r-days">soit 0 jours de travail</p>
+      <p>Valeur de ce temps : <b id="r-value">0 €</b></p>
+      <small>Estimation indicative. Le diagnostic mesure le temps réel, tâche par tâche.</small>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="tarifs">
+<div class="wrap">
+  <div class="head">
+    <p class="eyebrow">Tarifs</p>
+    <h2>Des prix clairs, annoncés à l'avance</h2>
+  </div>
+  <div class="tabs" role="tablist" aria-label="Catégories de tarifs">
+    <button class="tab" role="tab" id="t-ent" aria-controls="p-ent" aria-selected="true">Prestations entreprises</button>
+    <button class="tab" role="tab" id="t-form" aria-controls="p-form" aria-selected="false">Formation collaborateurs</button>
+    <button class="tab" role="tab" id="t-part" aria-controls="p-part" aria-selected="false">Particuliers</button>
+  </div>
+
+  <div class="prices" id="p-ent" role="tabpanel" aria-labelledby="t-ent">
+    <div class="price"><span class="tag">Pour commencer</span><h3>Diagnostic</h3><p class="amount">590 € <small>HT</small></p><ul><li>Une demi-journée d'observation et d'entretiens</li><li>Carte des tâches répétitives et du temps perdu</li><li>3 automatisations prioritaires chiffrées</li><li>Montant déduit si vous commandez la mise en place</li></ul></div>
+    <div class="price pick"><span class="tag">Le plus choisi</span><h3>Pack Démarrage</h3><p class="amount">1 890 € <small>HT</small></p><ul><li>Diagnostic inclus</li><li>3 automatisations mises en place</li><li>2 h de prise en main avec l'équipe</li><li>1 mois de suivi offert</li></ul></div>
+    <div class="price"><span class="tag">À l'unité</span><h3>Automatisation</h3><p class="amount">dès 450 € <small>HT</small></p><ul><li>Essentielle (dès 450 €) : un flux simple, par ex. formulaire → tableau → mail</li><li>Avancée (dès 1 200 €) : plusieurs outils, conditions, documents</li><li>Suivi : 90 €/mois jusqu'à 5 flux, 240 €/mois avec 2 h d'évolutions</li></ul></div>
+  </div>
+
+  <div class="prices" id="p-form" role="tabpanel" aria-labelledby="t-form" hidden>
+    <div class="price"><span class="tag">3 heures</span><h3>Atelier Repérer</h3><p class="amount">690 € <small>HT</small></p><ul><li>Jusqu'à 8 personnes</li><li>Chacun repart avec sa liste de tâches automatisables</li><li>Idéal avant un projet</li></ul></div>
+    <div class="price pick"><span class="tag">1 jour</span><h3>Automatiser sans coder</h3><p class="amount">1 290 € <small>HT</small></p><ul><li>Jusqu'à 8 personnes</li><li>Prise en main de Make ou Power Automate</li><li>Chacun construit une automatisation utile à son poste</li></ul></div>
+    <div class="price"><span class="tag">2 jours</span><h3>Formation sur vos cas</h3><p class="amount">2 290 € <small>HT</small></p><ul><li>Jusqu'à 8 personnes</li><li>Travail sur les vrais processus de l'entreprise</li><li>Les automatisations créées restent en service</li></ul></div>
+  </div>
+
+  <div class="prices" id="p-part" role="tabpanel" aria-labelledby="t-part" hidden>
+    <div class="price"><span class="tag">Gratuit</span><h3>Newsletter</h3><p class="amount">0 €</p><ul><li>Tous les quinze jours</li><li>Une fiche outil et un cas pas à pas</li><li>Désinscription en un clic</li></ul></div>
+    <div class="price pick"><span class="tag">2 h en direct</span><h3>Masterclass</h3><p class="amount">49 € <small>TTC</small></p><ul><li>« Ma première automatisation »</li><li>« Formulaires, mails et rendez-vous automatiques »</li><li>Replay et modèles inclus</li></ul></div>
+    <div class="price"><span class="tag">6 semaines</span><h3>Parcours Intégrateur</h3><p class="amount">690 € <small>TTC</small></p><ul><li>6 sessions en direct et un projet réel</li><li>Évaluation finale</li><li>Accès au réseau de partenaires Temps Rendu</li></ul></div>
+  </div>
+  <p class="note">Tarifs de lancement. Les déplacements hors visioconférence sont facturés en plus. Nos formations ne sont pas encore finançables par les OPCO : la certification Qualiopi est en projet.</p>
+</div>
+</section>
+
+<section id="parti-pris">
+<div class="wrap stance">
+  <div class="head" style="margin:0">
+    <p class="eyebrow">Notre parti pris</p>
+    <h2>De l'IA seulement quand elle sert</h2>
+    <p class="lead">Beaucoup d'automatisations vendues « avec IA » fonctionneraient aussi bien, et de façon plus fiable, avec de simples règles. Nous choisissons l'outil le plus simple qui fait le travail.</p>
+  </div>
+  <div class="rules">
+    <div class="rule"><b>Règle 1</b><p>Structurer l'information à la source : un bon formulaire évite de deviner après coup.</p></div>
+    <div class="rule"><b>Règle 2</b><p>Automatiser avec des règles claires, que vos équipes comprennent et peuvent modifier.</p></div>
+    <div class="rule"><b>Règle 3</b><p>Réserver l'IA au texte libre que les règles ne savent pas lire : mails entrants, longs documents, réponses ouvertes.</p></div>
+    <div class="rule"><b>Règle 4</b><p>Protéger les données : le minimum d'informations, des outils hébergés en Europe quand c'est possible, et un humain qui valide.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="outils">
+<div class="wrap">
+  <div class="head">
+    <p class="eyebrow">La newsletter</p>
+    <h2>Les outils que nous décortiquons</h2>
+    <p class="lead">Chaque numéro présente un outil, ce qu'il fait bien, ses limites et un cas concret à reproduire.</p>
+  </div>
+  <div class="tools">
+    <div class="tool"><span class="k">Orchestration</span><h3>Make</h3><p>Des scénarios visuels qui relient vos applications, avec des conditions et des routes.</p></div>
+    <div class="tool"><span class="k">Orchestration</span><h3>Zapier</h3><p>Le plus simple pour démarrer, avec un très grand catalogue d'applications.</p></div>
+    <div class="tool"><span class="k">Orchestration</span><h3>n8n</h3><p>Open source, installable sur vos propres serveurs : utile quand les données doivent rester chez vous.</p></div>
+    <div class="tool"><span class="k">Microsoft 365</span><h3>Power Automate</h3><p>Le choix naturel si votre entreprise travaille déjà avec Outlook, Teams et SharePoint.</p></div>
+    <div class="tool"><span class="k">Google Workspace</span><h3>Apps Script</h3><p>De petits scripts pour automatiser Sheets, Gmail et Agenda, sans abonnement supplémentaire.</p></div>
+    <div class="tool"><span class="k">Formulaires</span><h3>Tally et Google Forms</h3><p>Des formulaires bien construits : la première étape de toute automatisation fiable.</p></div>
+    <div class="tool"><span class="k">Données</span><h3>Airtable et Sheets</h3><p>Des tableaux qui servent de base de données à vos automatisations.</p></div>
+    <div class="tool"><span class="k">Rendez-vous</span><h3>Pages de réservation</h3><p>Google Agenda, Calendly : laisser vos clients choisir un créneau libre, sans échange de mails.</p></div>
+    <div class="tool"><span class="k">IA</span><h3>Quand l'utiliser ?</h3><p>Trier des mails libres, résumer un document, préparer un brouillon : les cas où elle apporte vraiment quelque chose.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="reseau">
+<div class="wrap network">
+  <div class="head" style="margin:0">
+    <p class="eyebrow">Le réseau Temps Rendu</p>
+    <h2>Formé·e chez nous, partenaire ensuite</h2>
+    <p class="lead">Les personnes qui terminent le Parcours Intégrateur peuvent rejoindre notre réseau. Nous leur confions des missions auprès de nos clients et nous assurons le cadre : méthode, qualité, suivi.</p>
+    <p class="muted">Sur chaque mission que nous apportons, Temps Rendu perçoit une commission de 15 % du montant facturé. Les conditions sont fixées dans un contrat de partenariat signé avant toute mission.</p>
+  </div>
+  <div class="flow" aria-label="Parcours d'un partenaire">
+    <div><span>Masterclass</span><span>2 h</span></div>
+    <div><span>Parcours Intégrateur</span><span>6 semaines</span></div>
+    <div><span>Projet réel évalué</span><span>validation</span></div>
+    <div><span>Missions confiées par Temps Rendu</span><span>commission 15 %</span></div>
+  </div>
+</div>
+</section>
+
+<section id="faq">
+<div class="wrap">
+  <div class="head"><p class="eyebrow">Questions fréquentes</p><h2>Avant de nous contacter</h2></div>
+  <details><summary>Faut-il changer nos outils ?</summary><p>Non. Nous partons de ce que vous utilisez déjà : Google, Microsoft, votre logiciel de facturation, votre CRM. Nous ajoutons seulement l'outil d'orchestration qui les relie.</p></details>
+  <details><summary>Combien coûtent les outils eux-mêmes ?</summary><p>Beaucoup proposent une offre gratuite suffisante pour démarrer. Au-delà, comptez souvent quelques dizaines d'euros par mois. Le diagnostic chiffre ces abonnements avant toute décision.</p></details>
+  <details><summary>Que se passe-t-il si une automatisation s'arrête ?</summary><p>Avec le suivi mensuel, nous surveillons vos flux et nous les réparons. Sans suivi, vos équipes sont formées pour repérer et corriger les erreurs simples.</p></details>
+  <details><summary>Et les données personnelles ?</summary><p>Nous appliquons la minimisation : seules les données nécessaires circulent. Nous privilégions les outils hébergés en Europe et nous vous aidons à mettre à jour votre registre RGPD.</p></details>
+  <details><summary>La formation est-elle finançable ?</summary><p>Pas encore par les OPCO, car cela demande la certification Qualiopi, que nous préparons. Les tarifs intra restent nettement inférieurs à ceux d'une formation inter-entreprises par personne.</p></details>
+</div>
+</section>
+
+<section id="contact">
+<div class="wrap">
+  <div class="head"><p class="eyebrow">Contact</p><h2>Parlons de votre temps perdu</h2></div>
+  <div class="contact">
+    <form class="card" id="f-contact">
+      <h3>Demande pour une entreprise</h3>
+      <div class="field"><label for="f-name">Nom et prénom</label><input id="f-name" required autocomplete="name"></div>
+      <div class="field"><label for="f-mail">E-mail professionnel</label><input id="f-mail" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="f-need">Votre besoin</label><select id="f-need"><option>Un diagnostic</option><option>Une mise en place</option><option>Une formation pour mon équipe</option><option>Autre chose</option></select></div>
+      <div class="field"><label for="f-text">Quelles tâches vous prennent du temps ?</label><textarea id="f-text"></textarea></div>
+      <button class="btn" type="submit">Envoyer</button>
+      <p class="msg" data-msg hidden role="status"></p>
+    </form>
+    <form class="card" id="f-news">
+      <h3>Newsletter et masterclass</h3>
+      <p class="muted">Recevez la newsletter et les dates des prochaines masterclass.</p>
+      <div class="field"><label for="n-mail">E-mail</label><input id="n-mail" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="n-who">Je suis</label><select id="n-who"><option>Salarié·e</option><option>Dirigeant·e</option><option>Indépendant·e</option><option>En reconversion</option></select></div>
+      <button class="btn" type="submit">M'inscrire</button>
+      <p class="msg" data-msg hidden role="status"></p>
+    </form>
+  </div>
+</div>
+</section>
+
+<div class="wrap"><footer><span>Temps Rendu · Automatiser le répétitif, rendre du temps.</span><span><a href="mentions-legales.html">Mentions légales</a></span></footer></div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var fmt=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0});
+  function calc(){
+    var p=+$('c-people').value,m=+$('c-min').value,part=+$('c-part').value/100,c=+$('c-cost').value;
+    $('v-people').textContent=p;$('v-min').textContent=m+' min';$('v-part').textContent=Math.round(part*100)+' %';$('v-cost').textContent=c+' €/h';
+    var h=p*(m/60)*220*part;
+    $('r-hours').textContent=fmt.format(h)+' h';
+    $('r-days').textContent='soit '+fmt.format(h/7)+' jours de travail';
+    $('r-value').textContent=fmt.format(h*c)+' €';
+  }
+  ['c-people','c-min','c-part','c-cost'].forEach(function(id){$(id).addEventListener('input',calc)});
+  calc();
+
+  var tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(o){o.setAttribute('aria-selected',o===t?'true':'false');$(o.getAttribute('aria-controls')).hidden=(o!==t)});
+  })});
+
+  document.querySelectorAll('form.card').forEach(function(f){
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var m=f.querySelector('[data-msg]');
+      var ep=(document.querySelector('meta[name="forms-endpoint"]')||{}).content||'';
+      var data=new URLSearchParams();
+      data.append('formulaire',f.id==='f-news'?'newsletter':'contact');
+      f.querySelectorAll('input,select,textarea').forEach(function(el){data.append(el.id.replace(/^[fn]-/,''),el.value)});
+      data.append('page',location.pathname);data.append('date',new Date().toISOString());
+      function done(ok){m.textContent=ok?"Merci, votre message est bien parti. Nous vous répondons rapidement.":"L'envoi n'est pas encore activé. Merci de réessayer bientôt.";m.hidden=false;if(ok)f.reset();}
+      if(!ep){done(false);return;}
+      fetch(ep,{method:'POST',mode:'no-cors',body:data}).then(function(){done(true)}).catch(function(){done(false)});
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
