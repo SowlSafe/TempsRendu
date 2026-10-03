@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Génère le site statique Temps Rendu (pages HTML complètes, sans étape de build côté Cloudflare)."""
+"""Génère le site statique Humatiq (pages HTML complètes, sans étape de build côté Cloudflare)."""
 import os, shutil, datetime
 
 SRC = os.path.join(os.path.dirname(__file__), 'src')
@@ -46,7 +46,7 @@ def layout(slug, title, description, body):
     nav = ''.join(
         f'<a href="{href}"{cur if s == slug else ""}>{label}</a>' for s, label, href in NAV)
     cta_current = ' aria-current="page"' if slug == 'contact' else ''
-    full_title = 'Temps Rendu · Automatiser le répétitif, rendre du temps' if slug == 'index' else f'{title} · Temps Rendu'
+    full_title = 'Humatiq · Automatiser le répétitif, rendre du temps' if slug == 'index' else f'{title} · Humatiq'
     year = datetime.date.today().year
     return f'''<!doctype html>
 <html lang="fr">
@@ -58,7 +58,7 @@ def layout(slug, title, description, body):
 <meta property="og:title" content="{full_title}">
 <meta property="og:description" content="{description}">
 <meta property="og:locale" content="fr_FR">
-<meta property="og:site_name" content="Temps Rendu">
+<meta property="og:site_name" content="Humatiq">
 <meta name="theme-color" content="#13231E">
 <meta name="forms-endpoint" content="{FORMS_ENDPOINT}">
 <script>try{{var c=JSON.parse(localStorage.getItem('tr-confort')||'{{}}');for(var k in c){{if(c[k])document.documentElement.setAttribute('data-'+k,c[k]);}}}}catch(e){{}}</script>
@@ -103,7 +103,7 @@ def layout(slug, title, description, body):
 </div></div>
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="index.html" aria-label="Temps Rendu, accueil">{LOGO}<span>Temps Rendu</span></a>
+    <a class="brand" href="index.html" aria-label="Humatiq, accueil">{LOGO}<span>Humatiq</span></a>
     <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="site-nav" id="site-nav" aria-label="Navigation principale">{nav}<a class="btn small" href="contact.html"{cta_current}>Nous contacter</a></nav>
   </div>
@@ -118,7 +118,7 @@ def layout(slug, title, description, body):
     <div><p class="footer-title">Contact</p><a href="contact.html#entreprise">Demande entreprise</a><a href="contact.html#particulier">Demande particulier</a><a href="mentions-legales.html">Mentions légales et confidentialité</a></div>
   </div>
   <div class="wrap footer-social"><p class="footer-title">Suivez-nous</p><div class="socials">{social_links()}</div></div>
-  <div class="wrap footer-bottom"><p>© {year} Temps Rendu. Des automatisations simples, fiables et respectueuses des données.</p></div>
+  <div class="wrap footer-bottom"><p>© {year} Humatiq. Des automatisations simples, fiables et respectueuses des données.</p></div>
 </footer>
 <script src="assets/js/site.js"></script>
 </body>
@@ -354,7 +354,7 @@ hero('Particuliers et indépendants', 'Apprendre à automatiser, à votre rythme
 
 <section class="band-soft" id="parcours">
 <div class="wrap split2">
-  <div class="head" style="margin:0"><p class="eyebrow">Parcours Intégrateur · 6 semaines · 690 € TTC</p><h2>Faire de l'automatisation un métier</h2><p class="lead">6 sessions en direct, un projet réel pour un vrai client, une évaluation finale. Les personnes qui le réussissent peuvent rejoindre le réseau Temps Rendu.</p><div class="row"><a class="btn" href="contact.html#parcours">Candidater</a><a class="btn ghost" href="reseau.html">Le réseau</a></div></div>
+  <div class="head" style="margin:0"><p class="eyebrow">Parcours Intégrateur · 6 semaines · 690 € TTC</p><h2>Faire de l'automatisation un métier</h2><p class="lead">6 sessions en direct, un projet réel pour un vrai client, une évaluation finale. Les personnes qui le réussissent peuvent rejoindre le réseau Humatiq.</p><div class="row"><a class="btn" href="contact.html#parcours">Candidater</a><a class="btn ghost" href="reseau.html">Le réseau</a></div></div>
   <div class="programme">
     <div class="module"><b>Semaine 1</b><div><h3>Repérer et chiffrer</h3><p>Observer un poste, mesurer le temps perdu, prioriser.</p></div></div>
     <div class="module"><b>Semaine 2</b><div><h3>Les bases de l'orchestration</h3><p>Déclencheurs, actions, données, premiers scénarios.</p></div></div>
@@ -409,8 +409,8 @@ hero('Ressources · Newsletter', "Les outils d'orchestration, expliqués simplem
 ''')
 
 # ---------------------------------------------------------------- Réseau
-PAGES['reseau'] = ('Réseau de partenaires', "Formé·e chez Temps Rendu, partenaire ensuite : nous confions des missions aux intégrateurs de notre réseau, avec une méthode et un cadre qualité.",
-hero('Le réseau Temps Rendu', 'Formé·e chez nous, partenaire ensuite', "Les personnes qui réussissent le Parcours Intégrateur peuvent rejoindre notre réseau. Nous leur confions des missions auprès de nos clients et nous assurons le cadre.",
+PAGES['reseau'] = ('Réseau de partenaires', "Formé·e chez Humatiq, partenaire ensuite : nous confions des missions aux intégrateurs de notre réseau, avec une méthode et un cadre qualité.",
+hero('Le réseau Humatiq', 'Formé·e chez nous, partenaire ensuite', "Les personnes qui réussissent le Parcours Intégrateur peuvent rejoindre notre réseau. Nous leur confions des missions auprès de nos clients et nous assurons le cadre.",
      '<a class="btn amber" href="contact.html#partenariat">Rejoindre le réseau</a><a class="btn ghost" href="masterclass.html#parcours">Le Parcours Intégrateur</a>') + '''
 <section>
 <div class="wrap split2">
@@ -419,7 +419,7 @@ hero('Le réseau Temps Rendu', 'Formé·e chez nous, partenaire ensuite', "Les p
     <div><span>Masterclass</span><span>2 h</span></div>
     <div><span>Parcours Intégrateur</span><span>6 semaines</span></div>
     <div><span>Projet réel évalué</span><span>validation</span></div>
-    <div><span>Missions confiées par Temps Rendu</span><span>commission 15 %</span></div>
+    <div><span>Missions confiées par Humatiq</span><span>commission 15 %</span></div>
   </div>
 </div>
 </section>
@@ -428,10 +428,10 @@ hero('Le réseau Temps Rendu', 'Formé·e chez nous, partenaire ensuite', "Les p
 <div class="wrap">
   <div class="head"><p class="eyebrow">Ce que chacun apporte</p><h2>Un partenariat clair</h2></div>
   <div class="cards two">
-    <div class="card"><h3>Temps Rendu apporte</h3><ul class="muted"><li>Des missions auprès de clients qualifiés</li><li>La méthode de diagnostic et les modèles</li><li>Un suivi qualité et un appui sur les cas difficiles</li><li>La visibilité de la marque</li></ul></div>
+    <div class="card"><h3>Humatiq apporte</h3><ul class="muted"><li>Des missions auprès de clients qualifiés</li><li>La méthode de diagnostic et les modèles</li><li>Un suivi qualité et un appui sur les cas difficiles</li><li>La visibilité de la marque</li></ul></div>
     <div class="card"><h3>Le partenaire s'engage à</h3><ul class="muted"><li>Appliquer la méthode et la charte qualité</li><li>Respecter les règles RGPD et la confidentialité</li><li>Documenter chaque automatisation livrée</li><li>Facturer en indépendant, avec son propre statut</li></ul></div>
   </div>
-  <p class="note">Sur chaque mission que nous apportons, Temps Rendu perçoit une commission de 15 % du montant facturé. Les conditions sont fixées dans un contrat de partenariat signé avant toute mission.</p>
+  <p class="note">Sur chaque mission que nous apportons, Humatiq perçoit une commission de 15 % du montant facturé. Les conditions sont fixées dans un contrat de partenariat signé avant toute mission.</p>
 </div>
 </section>
 
@@ -446,7 +446,7 @@ hero('Le réseau Temps Rendu', 'Formé·e chez nous, partenaire ensuite', "Les p
 ''' + cta('Envie de rejoindre le réseau ?', 'Parlez-nous de votre parcours et de vos disponibilités.', '<a class="btn amber" href="contact.html#partenariat">Nous écrire</a>'))
 
 # ---------------------------------------------------------------- Tarifs
-PAGES['tarifs'] = ('Tarifs', "Tarifs de lancement Temps Rendu : diagnostic, Pack Démarrage, automatisations, suivi, formations intra, masterclass et Parcours Intégrateur.",
+PAGES['tarifs'] = ('Tarifs', "Tarifs de lancement Humatiq : diagnostic, Pack Démarrage, automatisations, suivi, formations intra, masterclass et Parcours Intégrateur.",
 hero('Tarifs', 'Des prix clairs, annoncés à l\'avance', "Tarifs de lancement. Chaque prestation commence par un échange gratuit de 20 minutes.") + '''
 <section>
 <div class="wrap">
@@ -468,7 +468,7 @@ hero('Tarifs', 'Des prix clairs, annoncés à l\'avance', "Tarifs de lancement. 
   <div class="prices" id="p-part" role="tabpanel" aria-labelledby="t-part" hidden>
     <div class="price"><span class="tag">Gratuit</span><h3>Newsletter</h3><p class="amount">0 €</p><ul><li>Tous les quinze jours</li><li>Une fiche outil et un cas pas à pas</li><li>Désinscription en un clic</li></ul></div>
     <div class="price pick"><span class="tag">2 h en direct</span><h3>Masterclass</h3><p class="amount">49 € <small>TTC</small></p><ul><li>« Ma première automatisation »</li><li>« Formulaires, mails et rendez-vous »</li><li>Replay et modèles inclus</li></ul></div>
-    <div class="price"><span class="tag">6 semaines</span><h3>Parcours Intégrateur</h3><p class="amount">690 € <small>TTC</small></p><ul><li>6 sessions en direct et un projet réel</li><li>Évaluation finale</li><li>Accès au réseau de partenaires Temps Rendu</li></ul></div>
+    <div class="price"><span class="tag">6 semaines</span><h3>Parcours Intégrateur</h3><p class="amount">690 € <small>TTC</small></p><ul><li>6 sessions en direct et un projet réel</li><li>Évaluation finale</li><li>Accès au réseau de partenaires Humatiq</li></ul></div>
   </div>
   <p class="note">Tarifs de lancement. Les déplacements hors visioconférence sont facturés en plus. Les abonnements aux outils (Make, Zapier…) restent à la charge du client. Nos formations ne sont pas encore finançables par les OPCO : la certification Qualiopi est en préparation.</p>
 </div>
@@ -476,12 +476,12 @@ hero('Tarifs', 'Des prix clairs, annoncés à l\'avance', "Tarifs de lancement. 
 ''' + cta('Un besoin particulier ?', 'Nous établissons un devis précis après un premier échange gratuit.', '<a class="btn amber" href="contact.html">Demander un devis</a>'))
 
 # ---------------------------------------------------------------- À propos
-PAGES['a-propos'] = ('À propos', "Temps Rendu a été fondé par le Dr Florence Charquet Mazeres, spécialiste des facteurs humains : partir du travail réel, des règles simples, de l'IA seulement quand elle sert.",
-hero('À propos', 'Rendre du temps, pas ajouter de la complexité', "Temps Rendu est né d'un constat simple : beaucoup d'équipes perdent des heures sur des tâches qu'un outil pourrait faire à leur place.") + '''
+PAGES['a-propos'] = ('À propos', "Humatiq a été fondé par le Dr Florence Charquet Mazeres, spécialiste des facteurs humains : partir du travail réel, des règles simples, de l'IA seulement quand elle sert.",
+hero('À propos', 'Rendre du temps, pas ajouter de la complexité', "Humatiq est né d'un constat simple : beaucoup d'équipes perdent des heures sur des tâches qu'un outil pourrait faire à leur place.") + '''
 <section>
 <div class="wrap founder">
   <div class="portrait" aria-hidden="true">FCM</div>
-  <div class="head" style="margin:0"><p class="eyebrow">La fondatrice</p><h2>Dr Florence Charquet Mazeres</h2><p class="lead">Spécialiste des facteurs humains, elle s'intéresse à la façon dont l'organisation du travail pèse sur la fatigue, les erreurs et l'efficacité. Temps Rendu applique cette approche à l'automatisation : partir des personnes, puis choisir l'outil.</p></div>
+  <div class="head" style="margin:0"><p class="eyebrow">La fondatrice</p><h2>Dr Florence Charquet Mazeres</h2><p class="lead">Spécialiste des facteurs humains, elle s'intéresse à la façon dont l'organisation du travail pèse sur la fatigue, les erreurs et l'efficacité. Humatiq applique cette approche à l'automatisation : partir des personnes, puis choisir l'outil.</p></div>
 </div>
 </section>
 
@@ -499,7 +499,7 @@ hero('À propos', 'Rendre du temps, pas ajouter de la complexité', "Temps Rendu
 ''' + cta('Travaillons ensemble', 'Un premier échange de 20 minutes, sans engagement.', '<a class="btn amber" href="contact.html">Nous contacter</a>'))
 
 # ---------------------------------------------------------------- Contact
-PAGES['contact'] = ('Contact', "Contactez Temps Rendu : diagnostic, automatisation, formation de vos équipes, masterclass, Parcours Intégrateur ou partenariat.",
+PAGES['contact'] = ('Contact', "Contactez Humatiq : diagnostic, automatisation, formation de vos équipes, masterclass, Parcours Intégrateur ou partenariat.",
 hero('Contact', 'Parlons de votre temps perdu', "Décrivez votre besoin en quelques lignes. Nous vous répondons sous 48 h ouvrées.") + '''
 <section>
 <div class="wrap">
@@ -553,13 +553,13 @@ hero('Contact', 'Parlons de votre temps perdu', "Décrivez votre besoin en quelq
 ''')
 
 # ---------------------------------------------------------------- Mentions légales
-PAGES['mentions-legales'] = ('Mentions légales', "Mentions légales et politique de confidentialité du site Temps Rendu.",
+PAGES['mentions-legales'] = ('Mentions légales', "Mentions légales et politique de confidentialité du site Humatiq.",
 hero('Informations légales', 'Mentions légales et confidentialité', "Qui édite ce site, qui l'héberge, et ce que nous faisons de vos données.") + '''
 <section>
 <div class="wrap" style="max-width:52rem">
   <div style="display:grid;gap:1rem">
     <h2 style="font-size:1.5rem">Éditeur du site</h2>
-    <p class="muted">Temps Rendu · <mark>statut juridique, adresse et SIREN à compléter</mark><br>Directrice de la publication : Florence Charquet Mazeres<br>Contact : <mark>adresse e-mail à compléter</mark></p>
+    <p class="muted">Humatiq · <mark>statut juridique, adresse et SIREN à compléter</mark><br>Directrice de la publication : Florence Charquet Mazeres<br>Contact : <mark>adresse e-mail à compléter</mark></p>
     <h2 style="font-size:1.5rem">Hébergement</h2>
     <p class="muted">Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis.</p>
     <h2 style="font-size:1.5rem" id="confidentialite">Données personnelles</h2>
@@ -576,7 +576,7 @@ hero('Informations légales', 'Mentions légales et confidentialité', "Qui édi
 </section>
 ''')
 
-PAGES['espace'] = ('Mon espace', "L'espace apprenant Temps Rendu : supports de cours, replays et liens des visios, au même endroit.",
+PAGES['espace'] = ('Mon espace', "L'espace apprenant Humatiq : supports de cours, replays et liens des visios, au même endroit.",
 hero('Espace apprenant', 'Vos supports, vos replays, vos visios', "Bientôt, chaque participant aura son compte pour retrouver tout ce qui concerne sa formation, au même endroit.") + '''
 <section>
 <div class="wrap split2">
